@@ -25,7 +25,7 @@ const StartupScreen = props => {
       const { _id, name, phoneNumber, token, pushToken } = JSON.parse(userData);
 
       mainDispatch({ type: 'triedAutoLogin', value: true });
-      console.log(pushToken);
+
       mainDispatch({ type: 'login', value: { token, user: { _id, name, phoneNumber, pushToken } } });
     };
 

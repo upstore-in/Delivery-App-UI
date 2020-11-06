@@ -38,7 +38,6 @@ const CompletedOrdersScreen = props => {
   };
 
   const renderOrders = ({ item }) => {
-    console.log(item);
     return (
       <Card style={styles.listItem}>
         <Text>Name: {item.address.contactName}</Text>

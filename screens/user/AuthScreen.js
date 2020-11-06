@@ -34,8 +34,6 @@ const AuthScreen = props => {
       setSessionId(response.data.session_id);
       setPhoneNumber(values.phoneNumber);
       setLoading(false);
-
-      console.log(response.data);
     } catch (err) {
       return console.log(err);
     }
@@ -45,7 +43,7 @@ const AuthScreen = props => {
 
   const onSubmitOTP = async values => {
     setLoading(true);
-    console.log(values.phoneNumber, values.OTP);
+
     try {
       const response = await Axios.post(`http://65.0.144.68/api/verifyOTP`, { phoneNumber: values.phoneNumber, OTP: values.OTP, session_id: sessionId });
       mainDispatch({ type: 'login', value: response.data });
@@ -63,7 +61,7 @@ const AuthScreen = props => {
   };
 
   return (
-    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50} style={styles.screen}>
+    <KeyboardAvoidingView keyboardVerticalOffset={50} style={styles.screen}>
       <LinearGradient colors={['#ffedff', '#ffe3ff']} style={styles.gradient}>
         <Card style={styles.authContainer}>
           <ScrollView>
