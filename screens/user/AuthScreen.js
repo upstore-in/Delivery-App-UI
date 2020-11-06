@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { ScrollView, View, KeyboardAvoidingView, StyleSheet, Button, TextInput, Text, ActivityIndicator } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as yup from 'yup';
 import { Formik } from 'formik';
@@ -27,9 +28,9 @@ const AuthScreen = props => {
 
   const onSubmitNumber = async values => {
     setLoading(true);
-    console.log(values.phoneNumber, values.OTP);
+
     try {
-      const response = await Axios.post(`http://172.20.10.8:8000/api/getSessionId`, { phoneNumber: values.phoneNumber });
+      const response = await Axios.post(`http://65.0.144.68/api/getSessionId`, { phoneNumber: values.phoneNumber });
       setSessionId(response.data.session_id);
       setPhoneNumber(values.phoneNumber);
       setLoading(false);
@@ -46,13 +47,19 @@ const AuthScreen = props => {
     setLoading(true);
     console.log(values.phoneNumber, values.OTP);
     try {
-      const response = await Axios.post(`http://172.20.10.8:8000/api/verifyOTP`, { phoneNumber: values.phoneNumber, OTP: values.OTP, session_id: sessionId });
+      const response = await Axios.post(`http://65.0.144.68/api/verifyOTP`, { phoneNumber: values.phoneNumber, OTP: values.OTP, session_id: sessionId });
       mainDispatch({ type: 'login', value: response.data });
+
+      saveDataToStorage({ token: response.data.token, ...response.data.user });
     } catch (err) {
       return console.log(err);
     }
 
     return;
+  };
+
+  const saveDataToStorage = user => {
+    AsyncStorage.setItem('userData', JSON.stringify(user));
   };
 
   return (

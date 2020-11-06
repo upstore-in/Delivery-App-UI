@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppNavigator from './navigation/AppNavigator';
 import StateContext from './StateContext';
 import DispatchContext from './DispatchContext';
@@ -19,6 +19,7 @@ export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
 
   const initialState = {
+    triedAutoLogin: false,
     loggedIn: false,
     user: {
       token: '',
@@ -31,6 +32,9 @@ export default function App() {
 
   function mainReducer(draft, action) {
     switch (action.type) {
+      case 'triedAutoLogin':
+        draft.triedAutoLogin = true;
+
       case 'login':
         draft.loggedIn = true;
 
@@ -58,6 +62,7 @@ export default function App() {
       />
     );
   }
+
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>

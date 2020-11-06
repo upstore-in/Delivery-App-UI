@@ -1,8 +1,10 @@
 {
   "expo": {
-    "name": "rn-first-app",
-    "slug": "rn-first-app",
+    "name": "Up Partner",
+    "slug": "up-partner",
     "version": "1.0.0",
+    "platforms": ["ios", "android"],
+
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -15,9 +17,13 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "in.upstore.uppartner",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "package": "in.upstore.up_partner",
+      "versionCode": 1,
       "useNextNotificationsApi": true
     },
     "web": {
